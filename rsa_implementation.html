@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSA Encryption</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    hr {
+    border: none;
+    height: 2px; 
+    background-color: #006D5B; 
+    width: 90%; 
+    margin: 20px auto; 
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    table td {
+        padding: 10px;
+    }
+    table td:first-child {
+        text-align: left;
+	padding-left: 35px;
+    }
+    table input[type="number"],
+    table input[type="text"] {
+        width: 200px;
+        padding: 6px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    button {
+        background-color: #006D5B;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #014D4E;
+    }
+    #output {
+        text-align: left;
+        margin-top: 20px;
+    }
+    #output h2 {
+        margin-bottom: 10px;
+    }
+    #output p {
+        margin: 5px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>RSA Algorithm Implementation</h1>
+    <hr>
+    <table>
+        <tr>
+            <td>Enter First Prime Number:</td>
+            <td><input type="number" id="p"></td>
+        </tr>
+        <tr>
+            <td>Enter Second Prime Number:</td>
+            <td><input type="number" id="q"></td>
+        </tr>
+        <tr>
+            <td>Enter Plain Text:</td>
+            <td><input type="text" id="msg"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;"><button onclick="RSA()"><b>Apply RSA<b></button></td>
+        </tr>
+    </table>
+    <div id="output"></div>
+</div>
+
+<script type="text/javascript">
+    function RSA() {
+        var p = parseInt(document.getElementById('p').value);
+        var q = parseInt(document.getElementById('q').value);
+        var msg = document.getElementById('msg').value;
+
+        if (!validateInput(p, q, msg)) {
+            document.getElementById('output').innerHTML = "<p style='color: red;'>Please enter valid prime numbers and a plaintext message.</p>";
+            return;
+        }
+
+        var n = p * q;
+        var phi = (p - 1) * (q - 1);
+        var e = calculatePublicKey(phi);
+        var d = calculatePrivateKey(e, phi);
+
+        var encryptedMessage = encrypt(msg, e, n);
+        var decryptedMessage = decrypt(encryptedMessage, d, n);
+
+        displayResults(n, e, d, encryptedMessage, decryptedMessage);
+    }
+
+    function validateInput(p, q, msg) {
+        return Number.isInteger(p) && Number.isInteger(q) && p > 1 && q > 1 && msg.trim() !== '';
+    }
+
+    function calculatePublicKey(phi) {
+        for (var e = 2; e < phi; e++) {
+            if (gcd(e, phi) == 1) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    function calculatePrivateKey(e, phi) {
+        for (var d = 2; d < phi; d++) {
+            if ((d * e) % phi == 1) {
+                return d;
+            }
+        }
+        return null;
+    }
+
+    function gcd(a, b) {
+        while (b != 0) {
+            var temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    function encrypt(message, e, n) {
+        var encryptedMessage = '';
+        for (var i = 0; i < message.length; i++) {
+            var charCode = message.charCodeAt(i);
+            encryptedMessage += modExp(charCode, e, n) + ' ';
+        }
+        return encryptedMessage.trim();
+    }
+
+    function decrypt(encryptedMessage, d, n) {
+        var decryptedMessage = '';
+        var parts = encryptedMessage.split(' ');
+        for (var i = 0; i < parts.length; i++) {
+            var charCode = parseInt(parts[i]);
+            decryptedMessage += String.fromCharCode(modExp(charCode, d, n));
+        }
+        return decryptedMessage;
+    }
+
+    function modExp(base, exp, mod) {
+        if (mod == 1) return 0;
+        var result = 1;
+        base = base % mod;
+        while (exp > 0) {
+            if (exp % 2 == 1) result = (result * base) % mod;
+            exp = Math.floor(exp / 2);
+            base = (base * base) % mod;
+        }
+        return result;
+    }
+
+    function displayResults(n, e, d, encryptedMessage, decryptedMessage) {
+        var output = document.getElementById('output');
+        output.innerHTML = "<h2>Results</h2>";
+        output.innerHTML += "<p><strong>Public Key (n, e):</strong> (" + n + ", " + e + ")</p>";
+        output.innerHTML += "<p><strong>Private Key (n, d):</strong> (" + n + ", " + d + ")</p>";
+        output.innerHTML += "<p><strong>Encrypted Message:</strong> " + encryptedMessage + "</p>";
+        output.innerHTML += "<p><strong>Decrypted Message:</strong> " + decryptedMessage + "</p>";
+    }
+</script>
+
+</body>
+</html>
