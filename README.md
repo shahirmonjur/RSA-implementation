@@ -1,6 +1,6 @@
 # RSA Algorithm Implementation
 
-This project implements the RSA encryption and decryption algorithm in JavaScript. The RSA algorithm is a public-key cryptosystem that is widely used for secure data transmission. This simple project allows users to input two prime numbers and a plaintext message, apply the RSA algorithm, and view the encrypted and decrypted messages.
+I wrote this program for my Cybersecurity course assignment trying to implement the RSA algorithm in a simple way in Javascript and then putting it into an html file to view it as a webpage. 
 
 ## Features
 
