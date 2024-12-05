@@ -1,6 +1,6 @@
 # RSA Algorithm Implementation
 
-I wrote this program for one of my Cybersecurity course assignments trying to understand the the RSA algorithm in a simple way and scrapped a few line of code and then put it into an html file to view it as a webpage.  
+I wrote this program for one of my Cybersecurity course assignments trying to understand the the RSA algorithm in a simple way and scrapped a few line of code and then put it into an html file for usability.  
 
 ![image](https://github.com/user-attachments/assets/4d29e2e3-ad16-4aa8-a7fd-3926d41d1c2a)
 
@@ -22,7 +22,7 @@ RSA Algorithm
 
   - Decryption:
 
-      Decrypt each character using the formula:
+    - Decrypt each character using the formula:
 
             DecryptedCharacter = (EncryptedCharacter^d) % n
 
@@ -34,4 +34,4 @@ Convert the decrypted ASCII values back to characters to get the original messag
 
 ![image](https://github.com/user-attachments/assets/b4779df3-58e1-4084-b4f2-7ef5924b692e)
 
-Thank you.
+### Thank you.
