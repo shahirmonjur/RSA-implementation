@@ -2,22 +2,27 @@
 
 I wrote this program for my Cybersecurity course assignment trying to understand the the RSA algorithm in a simple way and scrapped a few line of code and then put it into an html file to view it as a webpage.  
 
-## Features
+RSA Algorithm 
 
-- User inputs two prime numbers (p and q).
-- User inputs a plaintext message.
-- The program calculates:
-  - Public key (`n`, `e`) using the input prime numbers.
-  - Private key (`n`, `d`) using the public key and Euler’s Totient function (`phi`).
-- The program encrypts the plaintext message using the public key.
-- The program decrypts the encrypted message using the private key.
-- Displays both encrypted and decrypted messages.
+  - Key Generation:
+    - Select two distinct prime numbers, p and q.
+    - Compute n = p * q.
+    - Calculate Euler’s totient function: φ(n) = (p - 1) * (q - 1).
+    - Choose an integer e such that 1 < e < φ(n) and gcd(e, φ(n)) = 1.
+    - Determine the private key d such that (d * e) % φ(n) = 1.
 
-## Files
+  - Encryption:
+    - Convert each character in the plaintext message to its ASCII value.
+    - Encrypt each character using the formula:
 
-- **index.html**: Contains the HTML structure, including input fields for prime numbers and the plaintext message, a button to apply the RSA algorithm, and a display area for results.
-- **JavaScript (embedded in the HTML)**: Contains the RSA algorithm implementation, including:
-  - Input validation for prime numbers and message.
-  - Calculation of the public and private keys.
-  - Functions for encryption and decryption of the message.
-  - Display of results on the page.
+            EncryptedCharacter = (ASCII_Value^e) % n
+
+Decryption:
+
+Decrypt each character using the formula:
+
+      DecryptedCharacter = (EncryptedCharacter^d) % n
+
+Convert the decrypted ASCII values back to characters to get the original message.
+
+Thank you.
