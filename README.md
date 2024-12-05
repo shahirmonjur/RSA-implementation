@@ -17,11 +17,11 @@ RSA Algorithm
 
             EncryptedCharacter = (ASCII_Value^e) % n
 
-Decryption:
+  - Decryption:
 
-Decrypt each character using the formula:
+      Decrypt each character using the formula:
 
-      DecryptedCharacter = (EncryptedCharacter^d) % n
+            DecryptedCharacter = (EncryptedCharacter^d) % n
 
 Convert the decrypted ASCII values back to characters to get the original message.
 
