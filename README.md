@@ -1,6 +1,6 @@
 # RSA Algorithm Implementation
 
-I wrote this program for my Cybersecurity course assignment trying to implement the RSA algorithm in a simple way in Javascript and then putting it into an html file to view it as a webpage. 
+I wrote this program for my Cybersecurity course assignment trying to understand the the RSA algorithm in a simple way and scrapped a few line of code and then put it into an html file to view it as a webpage.  
 
 ## Features
 
